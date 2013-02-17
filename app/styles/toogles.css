@@ -46,6 +46,9 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   line-height: 1.2;
 }
+.queued {
+  background: green !important;
+}
 .video h3 span {
   padding: 3%;
   display: block;
@@ -186,4 +189,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .tabs.vertical li ul li,.tabs.vertical li ul li.active {
   border:none;
+}
+
+.button-group.queue-buttons {
+  float: left;
+  padding-left: 1px;
+  position: relative;
+  top: -25px;
 }
