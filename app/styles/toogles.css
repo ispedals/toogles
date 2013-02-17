@@ -63,7 +63,7 @@ h1, h2, h3, h4, h5, h6 {
   max-width: 100%;
 }
 .rating {
-  height: 8px;
+  height: 15px;
   background-color: #C60F13;
   margin-bottom: 30px;
   margin-top: -2px;
@@ -92,7 +92,7 @@ h1, h2, h3, h4, h5, h6 {
   color: black;
 }
 .rating .like {
-  height: 8px;
+  height: 15px;
   background-color: #457A1A;
 }
 .description {
@@ -186,4 +186,13 @@ h1, h2, h3, h4, h5, h6 {
 
 .tabs.vertical li ul li,.tabs.vertical li ul li.active {
   border:none;
+}
+
+.views {
+  color: white;
+  float: left;
+  height: 15px;
+  margin-top: -3px;
+  padding-left: 3px;
+  text-align: left;
 }
