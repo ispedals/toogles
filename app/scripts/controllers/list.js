@@ -8,6 +8,8 @@ tooglesApp.controller('ListCtrl', ['$scope', '$routeParams', '$location', 'youtu
   $scope.searchtime = $location.search()['searchtime'] || false;
   $scope.section = $location.path().split('/')[1];
   $scope.searchtype = $location.search()['searchtype'] || 'videos';
+  $scope.showModifer = true;
+
 
   window.searchCallback = function(data) {
     if (!$scope.videos) {
