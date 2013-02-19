@@ -1,7 +1,7 @@
 /**
  * The controller used when viewing an individual video.
  */
-tooglesApp.controller('ViewCtrl', ['$scope', '$routeParams', '$location', 'youtube', function($scope, $routeParams, $location, youtube) {
+tooglesApp.controller('ViewCtrl', ['$scope', '$routeParams', '$location', 'youtube', 'queue', function($scope, $routeParams, $location, youtube, queue) {
 
   $scope.location = $location; // Access $location inside the view.
   $scope.showSidebar = true;
@@ -21,6 +21,8 @@ tooglesApp.controller('ViewCtrl', ['$scope', '$routeParams', '$location', 'youtu
       $scope.video.embedurl = "http://www.youtube.com/embed/videoseries?list=" + $routeParams.id + "&autoplay=1&theme=light&color=white&iv_load_policy=3&origin=http://toogl.es&index=" + start;
       $scope.videos = data.feed.entry;
     }
+	queue.removeFromQueue($scope.video);
+	queue.addToWatched($scope.video);
     onYouTubeIframeAPIReady($scope.video.video_id, $scope.section);
     document.title = $scope.video.title.$t + " | Toogles";
   }
@@ -56,15 +58,15 @@ tooglesApp.controller('ViewCtrl', ['$scope', '$routeParams', '$location', 'youtu
     youtube.getItem('playlists', $routeParams.id);
   }
 
-  started = false;
+ started = false;
 
-  var onYouTubeIframeAPIReady = function(id, section) {
-    var player = new YT.Player('player', {
+  window.onYouTubeIframeAPIReady = function(id, section) {
+	var player = new YT.Player('player', {
       videoId: id,
       events: {
         'onStateChange': function (event) {
           if (event.data == 1) {
-            started = true;
+			started = true;
           }
           if (started && event.data == -1) {
             // When a new video is started in an existing player, open up its dedicated page.

@@ -31,10 +31,33 @@ tooglesApp.service('queue', function() {
 		delete hashOfQueued[video.media$group.yt$videoid.$t];
 	}
 
+	//-------------------------------------------------------------------
+
+	var viewedVideos = [];
+	var hashOfViewed = {};
+
+	this.addToWatched = function (video) {
+		video.watched = true;
+		hashOfViewed[video.media$group.yt$videoid.$t] = true;
+		viewedVideos.push(video);
+	}
+
+	this.getWatched = function () {
+		return viewedVideos;
+	}
+
+	var inWatched = function (video) {
+		return hashOfViewed[video.media$group.yt$videoid.$t] === true;
+	}
+
 	this.markIn = function (video) {
 		video.queued = false;
+		video.watched = false;
 		if(inQueue(video)) {
 			video.queued = true;
+		}
+		if(inWatched(video)) {
+			video.watched = true;
 		}
 		return video;
 	}

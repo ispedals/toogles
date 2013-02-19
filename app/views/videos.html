@@ -1,6 +1,6 @@
 <div ng-repeat="video in videos" class="four columns">
   <a ng-href="{{getLink(video, $index)}}" class="video">
-    <h3 ng-class="{queued: video.queued}"><span>{{video.title.$t}}</span></h3>
+    <h3 ng-class="{queued: video.queued, watched: video.watched}"><span>{{video.title.$t}}</span></h3>
     <img ng-src="{{video.media$group.media$thumbnail[1].url}}" />
 	<ul class="button-group queue-buttons" ng-hide="video.queued">
 		<li><a class="tiny button" ng-click="addToQueue(video)">Add</a></li>
