@@ -4,7 +4,12 @@
 tooglesApp.controller('QueueCtrl', ['$scope', '$location', 'youtube', 'queue', function($scope, $location, youtube, queue) {
   $scope.section = $location.path().split('/')[1];
   $scope.videos = queue.getQueue();
-  $scope.resulttype = 'videos'
+  $scope.resulttype = 'videos';
+  $scope.ignoreQueued = false;
+
+  $scope.$watch('ignoreQueued ', function() {
+    $scope.$parent.ignoreQueued = $scope.ignoreQueued;
+  })
 
   $scope.getLink = function(video, index) {
     if ($scope.resulttype == 'playlists') {
