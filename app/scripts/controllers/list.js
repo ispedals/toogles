@@ -112,4 +112,8 @@ tooglesApp.controller('ListCtrl', ['$scope', '$routeParams', '$location', 'youtu
 	queue.addToQueue(video);
   }
 
+  $scope.filterVideo = function (video) {
+	return !video.watched && !video.queued;
+   }
+
 }]);
