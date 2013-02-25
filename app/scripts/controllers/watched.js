@@ -2,6 +2,7 @@
  * The controller used to view watched videos
  */
 tooglesApp.controller('WatchedCtrl', ['$scope', '$location', 'youtube', 'queue', function($scope, $location, youtube, queue) {
+  $scope.location = $location;
   $scope.section = $location.path().split('/')[1];
   $scope.videos = queue.getWatched();
   $scope.resulttype = 'videos';
