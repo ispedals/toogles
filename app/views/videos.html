@@ -1,4 +1,7 @@
-<div ng-repeat="video in videos | filter:filterVideo" class="four columns" when-swiped="addToIgnored">
+<div ng-repeat="video in videos | filter:filterVideo" class="four columns" when-swiped="addToIgnored" contextmenu="ignore{{$index}}">
+	<menu type="context" id="ignore{{$index}}">
+      <menuitem label="Ignore User" ng-click="ignoreUser(video.author[0].name.$t)"></menuitem>
+  </menu>
   <a ng-href="{{getLink(video, $index)}}" class="video">
     <h3 ng-class="{queued: video.queued, watched: video.watched, ignored: video.ignored}"><span>{{video.title.$t}}</span></h3>
     <img ng-src="{{video.media$group.media$thumbnail[1].url}}" />
