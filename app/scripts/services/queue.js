@@ -49,15 +49,32 @@ tooglesApp.service('queue', function() {
 	var inWatched = function (video) {
 		return hashOfViewed[video.media$group.yt$videoid.$t] === true;
 	}
+	
+	//-------------------------------------------------------------------
+
+	var hashOfIgnored = {};
+
+	this.addToIgnored = function (video) {
+		video.ignored = true;
+		hashOfIgnored[video.media$group.yt$videoid.$t] = true;
+	}
+
+	var inIgnored= function (video) {
+		return hashOfIgnored[video.media$group.yt$videoid.$t] === true;
+	}
 
 	this.markIn = function (video) {
 		video.queued = false;
 		video.watched = false;
+		video.ignored = false;
 		if(inQueue(video)) {
 			video.queued = true;
 		}
 		if(inWatched(video)) {
 			video.watched = true;
+		}
+		if(inIgnored(video)) {
+			video.ignored = true;
 		}
 		return video;
 	}

@@ -17,4 +17,5 @@ var tooglesApp = angular.module('tooglesApp', ['ngSanitize'])
   }]).run(function($rootScope) {
 	  $rootScope.ignoreQueued = false;
 	  $rootScope.ignoreWatched = false;
+	  $rootScope.ignoreIgnored = true;
   });

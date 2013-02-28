@@ -94,9 +94,10 @@ tooglesApp.controller('ListCtrl', ['$scope', '$routeParams', '$location', 'youtu
     $scope.search();
   })
 
-  $scope.$watch('ignoreQueued + ignoreWatched', function() {
+  $scope.$watch('ignoreQueued + ignoreWatched + ignoreIgnored', function() {
     $scope.$parent.ignoreQueued = $scope.ignoreQueued;
     $scope.$parent.ignoreWatched = $scope.ignoreWatched;
+    $scope.$parent.ignoreIgnored = $scope.ignoreIgnored;
   })
 
   $scope.$watch('videos', function (newValue, oldValue) {
@@ -115,6 +116,10 @@ tooglesApp.controller('ListCtrl', ['$scope', '$routeParams', '$location', 'youtu
 
   $scope.addToQueue = function(video) {
 	queue.addToQueue(video);
+  } 
+
+  $scope.addToIgnored = function(video) {
+	queue.addToIgnored(video);
   }
 
   $scope.filterVideo = function (video) {
@@ -122,6 +127,9 @@ tooglesApp.controller('ListCtrl', ['$scope', '$routeParams', '$location', 'youtu
 		return false;
 	}
 	if($scope.ignoreWatched && video.watched) {
+		return false;
+	}
+	if($scope.ignoreIgnored && video.ignored) {
 		return false;
 	}
 	return true;
