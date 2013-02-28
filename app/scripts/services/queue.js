@@ -53,14 +53,19 @@ tooglesApp.service('queue', function() {
 	//-------------------------------------------------------------------
 
 	var hashOfIgnored = {};
+	var ignoredUsers = {};
 
 	this.addToIgnored = function (video) {
 		video.ignored = true;
 		hashOfIgnored[video.media$group.yt$videoid.$t] = true;
 	}
+	
+	this.ignoreUser = function (userID) {
+		ignoredUsers[userID] = true;
+	}
 
 	var inIgnored= function (video) {
-		return hashOfIgnored[video.media$group.yt$videoid.$t] === true;
+		return hashOfIgnored[video.media$group.yt$videoid.$t] === true || ignoredUsers[video.author[0].name.$t] === true;
 	}
 
 	this.markIn = function (video) {
