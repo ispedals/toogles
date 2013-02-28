@@ -122,17 +122,4 @@ tooglesApp.controller('ListCtrl', ['$scope', '$routeParams', '$location', 'youtu
 	queue.addToIgnored(video);
   }
 
-  $scope.filterVideo = function (video) {
-	if($scope.ignoreQueued && video.queued) {
-		return false;
-	}
-	if($scope.ignoreWatched && video.watched) {
-		return false;
-	}
-	if($scope.ignoreIgnored && video.ignored) {
-		return false;
-	}
-	return true;
-   }
-
 }]);
