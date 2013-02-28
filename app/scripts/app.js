@@ -14,4 +14,7 @@ var tooglesApp = angular.module('tooglesApp', ['ngSanitize'])
     $routeProvider.when('/user/:username', { templateUrl: 'views/list.html', controller: 'ListCtrl' });
     $routeProvider.when('/user/:username/:feed', { templateUrl: 'views/list.html', controller: 'ListCtrl' });
     $routeProvider.otherwise({ redirectTo: '/browse' });
-  }]);
+  }]).run(function($rootScope) {
+	  $rootScope.ignoreQueued = false;
+	  $rootScope.ignoreWatched = false;
+  });
