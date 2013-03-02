@@ -46,6 +46,15 @@ h1, h2, h3, h4, h5, h6 {
   width: 100%;
   line-height: 1.2;
 }
+.queued {
+  background: green !important;
+}
+.watched {
+  background: teal !important;
+}
+.ignored {
+  background: red !important;
+}
 .video h3 span {
   padding: 3%;
   display: block;
@@ -195,4 +204,11 @@ h1, h2, h3, h4, h5, h6 {
   margin-top: -3px;
   padding-left: 3px;
   text-align: left;
+}
+
+.button-group.queue-buttons {
+  float: left;
+  padding-left: 1px;
+  position: relative;
+  top: -28px;
 }

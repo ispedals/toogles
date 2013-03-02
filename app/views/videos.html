@@ -1,7 +1,15 @@
-<div ng-repeat="video in videos" class="four columns">
+<div ng-repeat="video in videos | filter:filterVideo" class="four columns" when-swiped="addToIgnored" contextmenu="ignore{{$index}}">
+	<menu type="context" id="ignore{{$index}}">
+      <menuitem label="Ignore User" ng-click="ignoreUser(video.author[0].name.$t)"></menuitem>
+  </menu>
   <a ng-href="{{getLink(video, $index)}}" class="video">
-    <h3><span>{{video.title.$t}} | <u>{{video.author[0].name.$t}}</u> {{video.published.$t | date:'shortDate'}}</span></h3>
+    <h3></h3>
+    <h3 ng-class="{queued: video.queued, watched: video.watched, ignored: video.ignored}"><span>{{video.title.$t}} | <u>{{video.author[0].name.$t}}</u> {{video.published.$t | date:'shortDate'}}</span></h3>
     <img ng-src="{{video.media$group.media$thumbnail[1].url}}" />
+	<ul class="button-group queue-buttons">
+		<li><a class="small button" ng-click="addToQueue(video)" ng-hide="video.queued">Add</a></li>
+		<li><a  class="small button" ng-click="addToIgnored(video)" ng-hide="video.ignored || video.queued">Ignore</a></li>
+	</ul>
     <div class="duration">{{formatDuration(video.media$group.yt$duration.seconds)}}</div>
     <div class="rating">
       <span class="views">{{video.yt$statistics.viewCount | number:0}} views</span>

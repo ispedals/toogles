@@ -1,7 +1,7 @@
 /**
  * The controller used when searching/browsing videos.
  */
-tooglesApp.controller('ListCtrl', ['$scope', '$routeParams', '$location', 'youtube', function($scope, $routeParams, $location, youtube) {
+tooglesApp.controller('ListCtrl', ['$scope', '$routeParams', '$location', 'youtube', 'queue', function($scope, $routeParams, $location, youtube, queue) {
   $scope.location = $location;
   $scope.searchsort = $location.search()['searchsort'] || false;
   $scope.searchduration = $location.search()['searchduration'] || false;
@@ -94,11 +94,50 @@ tooglesApp.controller('ListCtrl', ['$scope', '$routeParams', '$location', 'youtu
     $scope.search();
   })
 
+  $scope.$watch('ignoreQueued + ignoreWatched + ignoreIgnored', function() {
+    $scope.$parent.ignoreQueued = $scope.ignoreQueued;
+    $scope.$parent.ignoreWatched = $scope.ignoreWatched;
+    $scope.$parent.ignoreIgnored = $scope.ignoreIgnored;
+  })
+
+  $scope.$watch('videos', function (newValue, oldValue) {
+    if (angular.equals(newValue, oldValue)) {
+	  return;
+    }
+    $scope.videos = $scope.videos.map(queue.markIn);
+  })
+
   $scope.urlToID = function(url) {
     return youtube.urlToID(url);
   }
   $scope.formatDuration = function(seconds) {
     return youtube.formatDuration(seconds);
+  }
+
+  $scope.addToQueue = function(video) {
+	queue.addToQueue(video);
+  } 
+
+  $scope.addToIgnored = function(video) {
+	queue.addToIgnored(video);
+  }
+
+  $scope.ignoreUser = function(userID) {
+	queue.ignoreUser(userID);
+	$scope.videos = $scope.videos.map(queue.markIn);
+  }
+
+  $scope.filterVideo = function (video) {
+	if($scope.ignoreQueued && video.queued) {
+		return false;
+	}
+	if($scope.ignoreWatched && video.watched) {
+		return false;
+	}
+	if($scope.ignoreIgnored && video.ignored) {
+		return false;
+	}
+	return true;
   }
 
 }]);
