@@ -1,11 +1,7 @@
 tooglesApp.directive('whenSwiped', function() {
 	return function (scope, element, attrs) {
 	   var video = scope.video;
-	   return $(element).hammer({
-             prevent_default: false,
-             drag_vertical: false
-	   })
-		 .bind("swipe", function (ev) {
+	   Hammer(element[0]).on("swiperight", function (ev) {
 			return scope.$apply(function (scope) {
 				return scope[attrs['whenSwiped']].call(scope, video);
 			});
